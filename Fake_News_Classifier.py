@@ -109,8 +109,8 @@ worldnews['text'] = worldnews['text'].apply(tokenizeandstopwords)
 # %%
 def generate_word_cloud(text):
     wordcloud = WordCloud(
-        width = 3000,
-        height = 2000,
+        width = 300,
+        height = 200,
         background_color = 'black').generate(str(text))
     fig = plt.figure(
         figsize = (20, 15),
@@ -341,5 +341,17 @@ print(classification_report(y_test, prediction))
 
 # %%
 plot_confusion_matrix(model, x_test, y_test)
+
+# %%
+import pickle
+
+# %%
+filename = 'finalized_model.sav'
+pickle.dump(model, open(filename, 'wb'))
+
+# %%
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(x_test, y_test)
+print(result)
 
 # %%
