@@ -355,3 +355,27 @@ result = loaded_model.score(x_test, y_test)
 print(result)
 
 # %%
+from sklearn import svm
+
+# svm = svm.SVC(n_estimators= 10, random_state= 0)
+pipe = Pipeline([('vect', CountVectorizer()),
+                 ('tfidf', TfidfTransformer()),
+                 ('model', svm.SVC())])
+
+model = pipe.fit(x_train, y_train)
+prediction = model.predict(x_test)
+print("Accuracy of SVM: {}%".format(round(accuracy_score(y_test, prediction)*100,2)))
+
+# %%
+from sklearn.ensemble import RandomForestClassifier
+
+rfc=RandomForestClassifier(n_estimators= 10, random_state= 0)
+pipe = Pipeline([('vect', CountVectorizer()),
+                 ('tfidf', TfidfTransformer()),
+                 ('model', RandomForestClassifier())])
+
+model = pipe.fit(x_train, y_train)
+prediction = model.predict(x_test)
+print("Accuracy of Random Forest Classifier: {}%".format(round(accuracy_score(y_test, prediction)*100,2)))
+
+# %%
